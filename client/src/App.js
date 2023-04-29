@@ -12,13 +12,15 @@ import './App.css';
 
 function App() {
   const [ currentScreen, setCurrentScreen ] = useState("MainMenu");
-  const [ roomCode, setRoomCode ] = useState();
+  const [ roomInfo, setRoomInfo ] = useState();
+  const [ playerName, setPlayerName ] = useState();
   const [ currentMinigame, setCurrentMinigame ] = useState();
   const [ scores, setScores ] = useState();
 
   useEffect( () => {
       socket.on("gameJoined", params => {
-        setRoomCode(params.roomCode);
+        setRoomInfo(params.roomInfo);
+        setPlayerName(params.joinedPlayer);
         setCurrentScreen("Lobby");
       });
 
@@ -40,7 +42,7 @@ function App() {
                   onCreateRoomClicked={ () => setCurrentScreen("CreateRoom") }/>,
     "CreateRoom": <CreateRoom />,
     "JoinRoom": <JoinRoom />,
-    "Lobby": <Lobby roomCode={ roomCode }/>,
+    "Lobby": <Lobby roomInfo={ roomInfo } currentPlayer={ playerName } />,
     "Minigame": <Minigame minigame={ currentMinigame } />,
     "EndGame": <EndGame scores={ scores } />
   };

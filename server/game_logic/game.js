@@ -13,6 +13,8 @@ module.exports = class Game {
 
     this.players = {};
     this.minigames = [];
+
+    this.host;
   }
 
   startGame() {
@@ -37,8 +39,30 @@ module.exports = class Game {
     return this.#getMinigameFor(playerName).serializable();
   }
 
+  /**
+   * Add a player with the given name
+   * @param {String} playerName 
+   * @returns Name of the player added
+   */
   addPlayer(playerName) {
-    this.players[playerName] = new Player(playerName);
+    const newPlayer = new Player(playerName)
+    this.players[playerName] = newPlayer;
+
+    if (!this.host) this.host = newPlayer;
+  
+    return playerName;
+  }
+
+  /**
+   * Get basic room information
+   * @returns Room code, player list, and name of host
+   */
+  getRoomInfo() {
+    return {
+      "roomCode": this.roomCode,
+      "players": Object.values(this.players).map(player => player.serialize()),
+      "host": this.host.name
+    };
   }
 
   #getMinigameFor(playerName) {
@@ -49,7 +73,7 @@ module.exports = class Game {
   #endGame() {
     let scores = Object.values(this.players)
       .map(player => { return {"playerName": player.name, "score": player.score} })
-      .sort((a, b) => a.score - b.score);
+      .sort((a, b) => b.score - a.score);
     return scores;
   }
 

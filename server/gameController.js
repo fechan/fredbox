@@ -4,7 +4,7 @@ const Game = require("./game_logic/game")
 module.exports = class GameController {
   constructor(io) {
     this.io = io;
-    this.rooms = {}; // map roomcodes to Game objects
+    this.games = {}; // map roomcodes to Game objects
 
     io.on("connection", (socket) => {
       console.info("Client connected to server");
@@ -17,27 +17,34 @@ module.exports = class GameController {
   }
 
   onJoinRoom(socket, params) {
-    const room = params.room;
-    socket.join(room);
-    this.rooms[room].addPlayer(params.playerName);
+    const game = this.games[params.room];
+    const playerName = game.addPlayer(params.playerName);
+    const roomInfo = game.getRoomInfo();
+  
+    socket.data.playerName = playerName;
+    socket.data.game = game;
+    socket.join(game.roomCode);
 
-    console.info(`Player ${params.playerName} joined room ${room}`)
+    console.info(`Player ${params.playerName} joined room ${game.roomCode}`);
+
+    this.sendGameJoined(socket, roomInfo, playerName);
   }
 
   onCreateRoom(socket, params) { 
     const newRoomCode = crypto.randomBytes(2).toString("hex");
     const newGame = new Game(newRoomCode, 5);
-    this.rooms[newRoomCode] = newGame;
+    this.games[newRoomCode] = newGame;
 
-    const hostPlayerName = params.hostPlayerName;
-    newGame.addPlayer(hostPlayerName);
+    const hostPlayerName = newGame.addPlayer(params.hostPlayerName);
+    const roomInfo = newGame.getRoomInfo();
+  
     socket.data.playerName = hostPlayerName;
     socket.data.game = newGame;
     socket.join(newRoomCode);
 
     console.info(`Created room for ${hostPlayerName} with code ${newRoomCode}`);
 
-    this.sendGameJoined(socket, newRoomCode);
+    this.sendGameJoined(socket, roomInfo, hostPlayerName);
   }
 
   onStartGame(socket, params) {
@@ -70,8 +77,11 @@ module.exports = class GameController {
     console.info(`- Sent new minigame ${minigame.name}`);
   }
 
-  sendGameJoined(socket, roomCode) {
-    socket.emit("gameJoined", {"roomCode": roomCode});
-    console.info(`- Sent newly joined room code`);
+  sendGameJoined(socket, roomInfo, joinedPlayer) {
+    socket.emit("gameJoined", {
+      "roomInfo": roomInfo,
+      "joinedPlayer": joinedPlayer
+    });
+    console.info(`- Sent newly joined room's info`);
   }
 }
