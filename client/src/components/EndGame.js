@@ -5,6 +5,7 @@ export function EndGame({scores}) {
 
   return ( 
     <div>
+      <h2>Scores:</h2>
       <ol>{ scoreboardItems }</ol>
     </div>
   )
