@@ -1,13 +1,11 @@
 export function EndGame({scores}) {
+  const scoreboardItems = scores.map(score =>
+    <li key={score.playerName}>{score.playerName}: {score.score}</li>
+  );
+
   return ( 
     <div>
-      <ol>
-        {
-          scores.map(score => {
-            return <li key={score.playerName}>{score.playerName}: {score.score}</li>;
-          })
-        }
-      </ol>
+      <ol>{ scoreboardItems }</ol>
     </div>
   )
 }
