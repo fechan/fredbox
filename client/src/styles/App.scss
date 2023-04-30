@@ -1,0 +1,24 @@
+$container-max-widths: (
+  sm: 540px
+);
+
+@import "~bootstrap/scss/bootstrap.scss";
+
+.App {
+  @extend .container-sm;
+  text-align: center;
+}
+
+.btn {
+  @extend .mb-3;
+  width: 100%;
+}
+
+.form-label {
+  text-align: left;
+  width: 100%;
+}
+
+input.form-control {
+  @extend .mb-3;
+}

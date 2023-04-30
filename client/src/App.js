@@ -8,7 +8,7 @@ import { Lobby } from "./components/Lobby";
 import { Minigame } from "./components/Minigame";
 import { EndGame } from "./components/EndGame";
 
-import './App.css';
+import './styles/App.scss';
 
 function App() {
   const [ currentScreen, setCurrentScreen ] = useState("MainMenu");
@@ -48,7 +48,7 @@ function App() {
   };
 
   return (
-    <div>
+    <div class="App">
       <h1>Fredbox</h1>
       { screens[currentScreen] }
     </div>
