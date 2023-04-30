@@ -1,4 +1,4 @@
-const DummyMinigame = require("./minigames/dummy");
+const StroopEffectMinigame = require("./minigames/stroopEffect");
 const MathMinigame = require("./minigames/math");
 
 const Player = require("./player");
@@ -9,7 +9,7 @@ module.exports = class Game {
     this.roomCode = roomCode;
     this.lengthSeconds = lengthSeconds;
 
-    this.availableMinigames = [DummyMinigame, MathMinigame]
+    this.availableMinigames = [StroopEffectMinigame]
 
     this.players = {};
     this.minigames = [];
