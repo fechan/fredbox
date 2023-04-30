@@ -9,7 +9,7 @@ module.exports = class Game {
     this.roomCode = roomCode;
     this.lengthSeconds = lengthSeconds;
 
-    this.availableMinigames = [StroopEffectMinigame]
+    this.availableMinigames = [StroopEffectMinigame, MathMinigame]
 
     this.players = {};
     this.minigames = [];
