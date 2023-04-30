@@ -42,7 +42,7 @@ module.exports = class MathMinigame {
     this.choices = choices;
   }
 
-  serializable() {
+  serialize() {
     return {
       "name": this.name,
       "question": this.question,

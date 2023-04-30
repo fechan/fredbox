@@ -26,7 +26,7 @@ module.exports = class Game {
 
     return {
       gameEnd: gameEnd,
-      firstMinigame: firstMinigame.serializable()
+      firstMinigame: firstMinigame.serialize()
     };
   }
 
@@ -36,7 +36,7 @@ module.exports = class Game {
     this.#addPoints(playerName, points);
 
     this.players[playerName].minigameProgress++;
-    return this.#getMinigameFor(playerName).serializable();
+    return this.#getMinigameFor(playerName).serialize();
   }
 
   /**

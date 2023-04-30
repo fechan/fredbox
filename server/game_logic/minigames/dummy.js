@@ -4,7 +4,7 @@ module.exports = class DummyMinigame {
     this.id = id;
   }
 
-  serializable() {
+  serialize() {
     return {
       "name": this.name,
       "choices": [Math.random(), Math.random(), Math.random(), Math.random()]
