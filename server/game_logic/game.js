@@ -21,7 +21,7 @@ module.exports = class Game {
     const firstMinigame = this.#getMinigameAtIndex(0);
     const gameEnd = new Promise(resolve => setTimeout(
       () => resolve(this.#endGame()),
-      this.lengthSeconds * 3000)
+      this.lengthSeconds * 1000)
     );
 
     return {
