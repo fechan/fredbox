@@ -40,6 +40,7 @@ function App() {
       socket.on("endGame", params => {
         setScores(params.scores);
         setCurrentScreen("EndGame");
+        setGradeParticles({});
       });
 
       socket.on("showGrade", params => {
