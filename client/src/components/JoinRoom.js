@@ -23,16 +23,16 @@ export function JoinRoom() {
   return (
     <div>
       <div>
-        <label class="form-label" for="player-name">Player name</label>
-        <input class="form-control" onChange={ updatePlayerName } value={ playerName } name="player-name"></input>
+        <label className="form-label" for="player-name">Player name</label>
+        <input className="form-control" onChange={ updatePlayerName } value={ playerName } name="player-name"></input>
       </div>
 
       <div>
-        <label class="form-label" for="room-code">Room code</label>
-        <input class="form-control" onChange={ updateRoomCode } value={ roomCode } name="room-code"></input>
+        <label className="form-label" for="room-code">Room code</label>
+        <input className="form-control" onChange={ updateRoomCode } value={ roomCode } name="room-code"></input>
       </div>
 
-      <button class="btn btn-primary" onClick={ joinRoom }>Join room</button>
+      <button className="btn btn-primary" onClick={ joinRoom }>Join room</button>
     </div>
   )
 }

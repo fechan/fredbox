@@ -2,7 +2,7 @@ import { useState } from "react";
 import { socket } from "../socket";
 
 export function CreateRoom() {
-  const [ playerName, setPlayerName ] = useState();
+  const [ playerName, setPlayerName ] = useState("");
 
   function updatePlayerName(evt) {
     setPlayerName(evt.target.value);
@@ -15,11 +15,11 @@ export function CreateRoom() {
   return (
     <div>
       <div>
-        <label class="form-label" for="player-name">Player name</label>
-        <input class="form-control" onChange={ updatePlayerName } value={ playerName } name="player-name"></input>
+        <label className="form-label" htmlFor="player-name">Player name</label>
+        <input className="form-control" onChange={ updatePlayerName } value={ playerName } name="player-name"></input>
       </div>
 
-      <button class="btn btn-primary" onClick={ createRoom }>Start game</button>
+      <button className="btn btn-primary" onClick={ createRoom }>Start game</button>
     </div>
   )
 }

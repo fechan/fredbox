@@ -9,10 +9,10 @@ export function MathMinigame({question, choices}) {
 
   return (
     <div>
-      <p class="h2">{ question }</p>
+      <p className="h2">{ question }</p>
       {
-        choices.map(choice => (
-          <button class="btn btn-primary" value={ choice } onClick={ setAnswer }>{ choice }</button>
+        choices.map((choice, i) => (
+          <button key={ i } className="btn btn-primary" value={ choice } onClick={ setAnswer }>{ choice }</button>
         ))
       }
     </div>
