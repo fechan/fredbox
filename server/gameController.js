@@ -66,9 +66,10 @@ module.exports = class GameController {
 
   onGradeAnswer(socket, params) {
     const { playerName, game } = socket.data;
-    const nextMinigame = game.gradeAnswer(playerName, params.answer);
+    const { grade, nextMinigame } = game.gradeAnswer(playerName, params.answer);
     
     console.info(`Graded ${playerName}'s answer in ${game.roomCode}`);
+    this.sendShowGrade(socket, grade)
     this.sendShowMinigame(socket, nextMinigame);
   }
 
@@ -83,5 +84,10 @@ module.exports = class GameController {
       "joinedPlayer": joinedPlayer
     });
     console.info(`- Sent newly joined room's info`);
+  }
+
+  sendShowGrade(socket, pointsEarned) {
+    socket.emit("showGrade", {"points": pointsEarned})
+    console.info(`- Sent points earned for graded answer`);
   }
 }

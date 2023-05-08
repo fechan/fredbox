@@ -21,7 +21,7 @@ module.exports = class Game {
     const firstMinigame = this.#getMinigameAtIndex(0);
     const gameEnd = new Promise(resolve => setTimeout(
       () => resolve(this.#endGame()),
-      this.lengthSeconds * 1000)
+      this.lengthSeconds * 3000)
     );
 
     return {
@@ -36,7 +36,10 @@ module.exports = class Game {
     this.#addPoints(playerName, points);
 
     this.players[playerName].minigameProgress++;
-    return this.#getMinigameFor(playerName).serialize();
+    return {
+      "grade": points,
+      "nextMinigame": this.#getMinigameFor(playerName).serialize()
+    };
   }
 
   /**
