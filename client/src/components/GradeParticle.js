@@ -37,7 +37,7 @@ export function GradeParticle({ keyName, gradeParticles, setGradeParticles, poin
       left: position.left,
       display: display,
       color: (points > 0) ? "green" : "red",
-      "-webkit-text-stroke": "1.5px white"
+      textShadow: "0px 0px 10px white"
     }}>
       { points }
     </span>
