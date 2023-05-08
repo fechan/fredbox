@@ -13,7 +13,7 @@ module.exports = class MathMinigame {
 
     // == Generate the question and answer ==
     const firstOperand = RandomUtils.randInt(OPERAND_MIN, OPERAND_MAX);
-    const secondOperand = RandomUtils.randInt(OPERAND_MIN, OPERAND_MAX);
+    const secondOperand = RandomUtils.randInt(0, OPERAND_MAX);
     const operation = RandomUtils.choice(["add", "subtract"]);
     
     this.question;
