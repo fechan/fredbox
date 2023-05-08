@@ -7,6 +7,7 @@ import { CreateRoom } from "./components/CreateRoom";
 import { Lobby } from "./components/Lobby";
 import { Minigame } from "./components/Minigame";
 import { EndGame } from "./components/EndGame";
+import { GradeParticle } from "./components/GradeParticle";
 
 import './styles/App.scss';
 
@@ -16,6 +17,13 @@ function App() {
   const [ playerName, setPlayerName ] = useState();
   const [ currentMinigame, setCurrentMinigame ] = useState();
   const [ scores, setScores ] = useState();
+
+  const [ gradeParticles, setGradeParticles ] = useState({});
+  const [ mouseMoveEvt, setMouseMoveEvt ] = useState({ x: 0, y: 0 });
+
+  function onMouseMove(evt) {
+    setMouseMoveEvt(evt)
+  }
 
   useEffect( () => {
       socket.on("gameJoined", params => {
@@ -33,6 +41,15 @@ function App() {
         setScores(params.scores);
         setCurrentScreen("EndGame");
       });
+
+      socket.on("showGrade", params => {
+        const gradeParticlesNew = { ...gradeParticles }
+        gradeParticlesNew[Date.now()] = {
+          key: Date.now(),
+          points: params.points
+        }
+        setGradeParticles(gradeParticlesNew);
+      })
     }
   );
 
@@ -48,9 +65,17 @@ function App() {
   };
 
   return (
-    <div class="App">
+    <div onMouseMove={ onMouseMove } className="App">
       <h1>Fredbox</h1>
       { screens[currentScreen] }
+
+      {
+        Object.values(gradeParticles).filter(prt => prt !== undefined).map(prt => {
+          return (<GradeParticle key={ prt.key } keyName={ prt.key }
+            gradeParticles={ gradeParticles } setGradeParticles={ setGradeParticles }
+            points={ prt.points } left={ mouseMoveEvt.clientX } top={ mouseMoveEvt.clientY } />)
+        })
+      }
     </div>
   );
 }
