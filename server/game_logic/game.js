@@ -23,6 +23,8 @@ module.exports = class Game {
    * @returns firstMinigame: First minigame of the game (serialized)
    */
   startGame() {
+    this.minigames = [];
+
     const firstMinigame = this.#getMinigameAtIndex(0);
     const gameEnd = new Promise(resolve => setTimeout(
       () => resolve(this.#endGame()),
