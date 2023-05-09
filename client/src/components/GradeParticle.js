@@ -13,18 +13,18 @@ export function GradeParticle({ keyName, gradeParticles, setGradeParticles, poin
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      const newVelocityY = yVelocity + g;
-      const newVelocityX = xVelocity;
-      const newPosition = {
-        top: position.top + newVelocityY,
-        left: position.left + newVelocityX,
-      };
-      setYVelocity(newVelocityY);
-      setPosition(newPosition);
-
       if (position.top > window.screen.height | position.left > window.screen.width | position.left < 0) {
         setDisplay("none");
         clearInterval(intervalId);
+      } else {
+        const newVelocityY = yVelocity + g;
+        const newVelocityX = xVelocity;
+        const newPosition = {
+          top: position.top + newVelocityY,
+          left: position.left + newVelocityX,
+        };
+        setYVelocity(newVelocityY);
+        setPosition(newPosition);
       }
     }, 1000 / 60);
 
@@ -32,13 +32,13 @@ export function GradeParticle({ keyName, gradeParticles, setGradeParticles, poin
   }, [position, xVelocity, yVelocity]);
 
   return (
-    <span inert="true" className="fw-bold h2" style={{
+    <span inert="true" className="fw-bold h1" style={{
       position: "absolute",
       top: position.top,
       left: position.left,
       display: display,
       color: (points > 0) ? "green" : "red",
-      textShadow: "0px 0px 10px white"
+      textShadow: "3px 3px 0px white"
     }}>
       { points }
     </span>
