@@ -14,8 +14,6 @@ const port = process.env.PORT || 5000;
 const GameController = require("./gameController");
 new GameController(io);
 
-app.get('/', (req, res) => {
-  res.send('<h1>Hello world</h1>');
-});
+app.use("/", express.static("./client/build"));
 
 server.listen(port, () => console.log("Server listening on port", port));
