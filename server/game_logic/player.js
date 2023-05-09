@@ -5,6 +5,11 @@ module.exports = class Player {
     this.minigameProgress = 0;
   }
 
+  reset() {
+    this.score = 0;
+    this.minigameProgress = 0;
+  }
+
   serialize() {
     return {
       "name": this.name,

@@ -23,7 +23,7 @@ module.exports = class Game {
    * @returns firstMinigame: First minigame of the game (serialized)
    */
   startGame() {
-    this.minigames = [];
+    this.#resetGame()
 
     const firstMinigame = this.#getMinigameAtIndex(0);
     const gameEnd = new Promise(resolve => setTimeout(
@@ -125,5 +125,10 @@ module.exports = class Game {
       return newMinigame;
     }
     return this.minigames[minigameIndex];
+  }
+
+  #resetGame() {
+    Object.values(this.players).forEach(player => player.reset());
+    this.minigames = [];
   }
 }

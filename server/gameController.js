@@ -21,6 +21,11 @@ module.exports = class GameController {
   onJoinRoom(socket, params) {
     const roomToJoin = params.room.toUpperCase();
     const game = this.games[roomToJoin];
+    if (game == null) {
+      this.sendError(socket, "gameNotFound", `Room with code ${roomToJoin} not found!`)
+      return;
+    }
+
     const playerName = game.addPlayer(params.playerName);
     const roomInfo = game.getRoomInfo();
 
