@@ -13,7 +13,8 @@ module.exports = class GameController {
       socket.on("createRoom",   params => this.onCreateRoom(socket, params));
       socket.on("startGame",    params => this.onStartGame(socket, params));
       socket.on("gradeAnswer",  params => this.onGradeAnswer(socket, params));
-      socket.on("disconnect",   params => this.onDisconnect(socket, params));
+      socket.on("disconnect",   params => this.onDisconnectOrLeaveRoom(socket, params));
+      socket.on("leaveRoom",    params => this.onDisconnectOrLeaveRoom(socket, params));
     });
   }
 
@@ -51,7 +52,7 @@ module.exports = class GameController {
     this.sendGameJoined(socket, roomInfo, hostPlayerName);
   }
 
-  onDisconnect(socket, params) {
+  onDisconnectOrLeaveRoom(socket, params) {
     if (this.#socketNotInActiveGame(socket, false)) return;
 
     const { playerName, game } = socket.data;

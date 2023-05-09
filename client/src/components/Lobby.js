@@ -1,10 +1,9 @@
 import { socket } from "../socket";
 
-export function Lobby({ roomInfo, currentPlayer }) {
+export function Lobby({ roomInfo, currentPlayer, onBackClicked }) {
   function startGame() {
     socket.emit("startGame");
   }
-  console.log(roomInfo.host, currentPlayer);
 
   const playerListItems = roomInfo.players.map(player =>
     <li className="list-group-item" key={ player.name }>
@@ -23,6 +22,8 @@ export function Lobby({ roomInfo, currentPlayer }) {
           <button className="btn btn-primary" onClick={ startGame }>Start game</button> :
           "Waiting for host to start the game..."
       }
+
+      <button className="btn btn-back" onClick={ onBackClicked }>Leave game</button>
     </div>
   )
 }

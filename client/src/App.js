@@ -25,6 +25,10 @@ function App() {
     setMouseMoveEvt(evt)
   }
 
+  function leaveRoom() {
+    socket.emit("leaveRoom");
+  }
+
   useEffect( () => {
       socket.on("gameJoined", params => {
         setRoomInfo(params.roomInfo);
@@ -59,14 +63,17 @@ function App() {
   );
 
   const screens = {
-    "MainMenu": <MainMenu
-                  onJoinRoomClicked={ () => setCurrentScreen("JoinRoom") }
-                  onCreateRoomClicked={ () => setCurrentScreen("CreateRoom") }/>,
-    "CreateRoom": <CreateRoom />,
-    "JoinRoom": <JoinRoom />,
-    "Lobby": <Lobby roomInfo={ roomInfo } currentPlayer={ playerName } />,
-    "Minigame": <Minigame minigame={ currentMinigame } />,
-    "EndGame": <EndGame scores={ scores } />
+    "MainMenu":   <MainMenu
+                    onJoinRoomClicked={ () => setCurrentScreen("JoinRoom") }
+                    onCreateRoomClicked={ () => setCurrentScreen("CreateRoom") } />,
+    "CreateRoom": <CreateRoom onBackClicked={ () => setCurrentScreen("MainMenu") } />,
+    "JoinRoom":   <JoinRoom onBackClicked={ () => setCurrentScreen("MainMenu") } />,
+    "Lobby":      <Lobby roomInfo={ roomInfo } currentPlayer={ playerName }
+                    onBackClicked={ () => { setCurrentScreen("MainMenu"); leaveRoom() } }/>,
+    "Minigame":   <Minigame minigame={ currentMinigame } />,
+    "EndGame":    <EndGame scores={ scores } 
+                    onPlayAgainClicked={ () => setCurrentScreen("Lobby") }
+                    onBackClicked={ () => { setCurrentScreen("MainMenu"); leaveRoom() } }/>
   };
 
   return (

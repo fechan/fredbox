@@ -14,6 +14,10 @@ $container-max-widths: (
   width: 100%;
 }
 
+.btn-back {
+  @extend .btn-outline-danger;
+}
+
 .form-label {
   text-align: left;
   width: 100%;

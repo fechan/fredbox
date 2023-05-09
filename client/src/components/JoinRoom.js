@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { socket } from "../socket";
 
-export function JoinRoom() {
+export function JoinRoom({ onBackClicked }) {
   const [ roomCode, setRoomCode ] = useState("");
   const [ playerName, setPlayerName ] = useState("");
 
@@ -17,7 +17,7 @@ export function JoinRoom() {
     socket.emit("joinRoom", {
       "room": roomCode,
       "playerName": playerName
-    })
+    });
   }
 
   return (
@@ -33,6 +33,8 @@ export function JoinRoom() {
       </div>
 
       <button className="btn btn-primary" onClick={ joinRoom }>Join room</button>
+
+      <button className="btn btn-back" onClick={ onBackClicked }>Back</button>
     </div>
   )
 }

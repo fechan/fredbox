@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { socket } from "../socket";
 
-export function CreateRoom() {
+export function CreateRoom({ onBackClicked }) {
   const [ playerName, setPlayerName ] = useState("");
 
   function updatePlayerName(evt) {
@@ -20,6 +20,8 @@ export function CreateRoom() {
       </div>
 
       <button className="btn btn-primary" onClick={ createRoom }>Start game</button>
+
+      <button className="btn btn-back" onClick={ onBackClicked }>Back</button>
     </div>
   )
 }
