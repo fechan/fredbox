@@ -1,21 +1,18 @@
-$container-max-widths: (
-  sm: 540px
-);
-
+@import "overrides";
 @import "~bootstrap/scss/bootstrap.scss";
 
+@import "buttons";
+
+@import "MathMinigame";
+@import "StroopEffectMinigame";
+
 .App {
-  @extend .container-sm;
   text-align: center;
-}
+  font-family: map-get($fredbox-fonts, "base");
 
-.btn {
-  @extend .my-2;
-  width: 100%;
-}
-
-.btn-back {
-  @extend .btn-outline-danger;
+  >main {
+    @extend .container-sm;
+  }
 }
 
 .form-label {
@@ -25,4 +22,15 @@ $container-max-widths: (
 
 input.form-control {
   @extend .mb-3;
+}
+
+.navbar {
+  @extend .mb-3;
+  background-color: black;
+  color: white;
+
+  h1 {
+    width: 100%;
+    font-weight: bold;
+  }
 }

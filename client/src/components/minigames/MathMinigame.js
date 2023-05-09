@@ -8,13 +8,15 @@ export function MathMinigame({question, choices}) {
   }
 
   return (
-    <div>
-      <p className="h2">{ question }</p>
-      {
-        choices.map((choice, i) => (
-          <button key={ i } className="btn btn-primary" value={ choice } onClick={ setAnswer }>{ choice }</button>
-        ))
-      }
+    <div className="MathMinigame">
+      <p className="question">{ question }</p>
+      <div className="choice-container">
+        {
+          choices.map((choice, i) => (
+            <button key={ i } className="choice" value={ choice } onClick={ setAnswer }>{ choice }</button>
+          ))
+        }
+      </div>
     </div>
   )
 }

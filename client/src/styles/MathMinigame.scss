@@ -1,0 +1,23 @@
+.MathMinigame {
+  .choice-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-evenly;
+  }
+  
+  .choice {
+    @extend .btn;
+    @extend .btn-outline-primary;
+    @extend .m-1;
+  
+    font-size: 3.5rem;
+    width: 35%;
+    aspect-ratio: 1 / 1;
+  }
+  
+  .question {
+    font-weight: bold;
+    font-size: 3rem;
+  }
+}

@@ -78,16 +78,19 @@ function App() {
 
   return (
     <div onMouseMove={ onMouseMove } className="App">
-      <h1>Fredbox</h1>
-      { screens[currentScreen] }
-
-      {
-        Object.values(gradeParticles).filter(prt => prt !== undefined).map(prt => {
-          return (<GradeParticle key={ prt.key } keyName={ prt.key }
-            gradeParticles={ gradeParticles } setGradeParticles={ setGradeParticles }
-            points={ prt.points } left={ mouseMoveEvt.clientX } top={ mouseMoveEvt.clientY } />)
-        })
-      }
+      <header className="navbar">
+        <h1>FREDBOX</h1>
+      </header>
+      <main>
+        { screens[currentScreen] }
+        {
+          Object.values(gradeParticles).filter(prt => prt !== undefined).map(prt => {
+            return (<GradeParticle key={ prt.key } keyName={ prt.key }
+              gradeParticles={ gradeParticles } setGradeParticles={ setGradeParticles }
+              points={ prt.points } left={ mouseMoveEvt.clientX } top={ mouseMoveEvt.clientY } />)
+          })
+        }
+      </main>
     </div>
   );
 }

@@ -24,6 +24,7 @@ export function GradeParticle({ keyName, gradeParticles, setGradeParticles, poin
 
       if (position.top > window.screen.height | position.left > window.screen.width | position.left < 0) {
         setDisplay("none");
+        clearInterval(intervalId);
       }
     }, 1000 / 60);
 

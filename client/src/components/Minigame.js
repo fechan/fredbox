@@ -13,7 +13,6 @@ export function Minigame({minigame}) {
 
   return (
     <div>
-      <h2>Minigame: { minigame.name }</h2>
       { minigames[minigame.name] }
     </div>
   )

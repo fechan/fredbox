@@ -8,7 +8,7 @@ export function StroopEffectMinigame({playerShouldSelect, correctColor, choices}
   }
 
   const choiceListItems = choices.map((choice, choiceIdx) =>
-    <button key={ choiceIdx } className="btn btn-outline-primary btn-lg fw-bold" style={{color: choice.textColor}}
+    <button key={ choiceIdx } className="choice" style={{color: choice.textColor}}
         value={choiceIdx} onClick={ setAnswer }>
       { choice.word }
     </button>
@@ -19,7 +19,7 @@ export function StroopEffectMinigame({playerShouldSelect, correctColor, choices}
     <>Select a word <strong>written in <span style={{color: correctColor}}>{ correctColor }</span></strong></>;
 
   return (
-    <div>
+    <div className="StroopEffectMinigame">
       <p className="h2">{ question }</p>
       { choiceListItems }
     </div>

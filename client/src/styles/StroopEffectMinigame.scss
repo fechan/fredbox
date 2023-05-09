@@ -1,0 +1,17 @@
+.StroopEffectMinigame {  
+  .choice {
+    @extend .mx-1;
+
+    font-weight: bold;
+    font-size: 5em;
+    background: none;
+    border: none;
+    text-shadow: none;
+    padding-top: 0;
+    padding-bottom: 0;
+    
+    &:hover {
+      text-shadow: 2px 2px 0px rgba(0,0,0,0.5);
+    }
+  }
+}
