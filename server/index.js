@@ -1,9 +1,13 @@
 const express = require("express");
 const cors = require("cors");
 const app = express();
-app.use(cors({
-  origin: "http://localhost:3000"
-}));
+
+if (process.env.NODE_ENV != "production") {
+  app.use(cors({
+    origin: "http://localhost:3000"
+  }));
+}
+
 const http = require("http");
 const server = http.createServer(app);
 const { Server } = require("socket.io");
