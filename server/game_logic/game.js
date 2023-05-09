@@ -19,7 +19,7 @@ module.exports = class Game {
 
   /**
    * Start the game
-   * @returns gameEnd: Promise that revolces when the game ends
+   * @returns gameEnd: Promise that resolves when the game ends
    * @returns firstMinigame: First minigame of the game (serialized)
    */
   startGame() {
