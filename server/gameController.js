@@ -36,7 +36,7 @@ module.exports = class GameController {
 
   onCreateRoom(socket, params) { 
     const newRoomCode = crypto.randomBytes(2).toString("hex").toUpperCase();
-    const newGame = new Game(newRoomCode, 20);
+    const newGame = new Game(newRoomCode, 45);
     this.games[newRoomCode] = newGame;
 
     const hostPlayerName = newGame.addPlayer(params.hostPlayerName);
