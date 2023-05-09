@@ -91,6 +91,14 @@ module.exports = class Game {
     };
   }
 
+  /**
+   * Get if the room is stale and references to it should be destroyed
+   * @returns true if the room is stale
+   */
+  getIsStale() {
+    return Object.keys(this.players).length <= 0;
+  }
+
   #getMinigameFor(playerName) {
     const player = this.players[playerName];
     return this.#getMinigameAtIndex(player.minigameProgress);

@@ -57,7 +57,12 @@ module.exports = class GameController {
     game.removePlayer(playerName);
     
     console.info(`Player ${playerName} disconnected`);
-    this.sendRoomInfoChanged(game.getRoomInfo());
+    if (game.getIsStale()) {
+      delete this.games[game.roomCode];
+      console.info(`Deleted a stale game`);
+    } else {
+      this.sendRoomInfoChanged(game.getRoomInfo());
+    }
   }
 
   onStartGame(socket, params) {
