@@ -1,7 +1,7 @@
 {
   "scripts": {
     "start": "node server/index.js",
-    "build": "cd client && npm run build"
+    "build": "cd client && npm i && npm run build && cd .. && cd server && npm i"
   },
   "devDependencies": {
     "jest": "^29.5.0"
