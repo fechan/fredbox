@@ -17,6 +17,11 @@ module.exports = class Game {
     this.host;
   }
 
+  /**
+   * Start the game
+   * @returns gameEnd: Promise that revolces when the game ends
+   * @returns firstMinigame: First minigame of the game (serialized)
+   */
   startGame() {
     const firstMinigame = this.#getMinigameAtIndex(0);
     const gameEnd = new Promise(resolve => setTimeout(
@@ -54,6 +59,24 @@ module.exports = class Game {
     if (!this.host) this.host = newPlayer;
   
     return playerName;
+  }
+
+  /**
+   * Remove the given player from the player list by name.
+   * If they were the host, arbitrarily choose the new host to be
+   * one of the remaining players
+   * @param {String} playerName Name of player to remove
+   * @returns true if the host player changed due to player removal
+   */
+  removePlayer(playerName) {
+    delete this.players[playerName];
+    
+    let hostPlayerChanged = playerName === this.host.name;
+    if (hostPlayerChanged) {
+      this.host = Object.values(this.players)[0];
+    }
+
+    return hostPlayerChanged;
   }
 
   /**

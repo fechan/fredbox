@@ -13,6 +13,7 @@ module.exports = class GameController {
       socket.on("createRoom",   params => this.onCreateRoom(socket, params));
       socket.on("startGame",    params => this.onStartGame(socket, params));
       socket.on("gradeAnswer",  params => this.onGradeAnswer(socket, params));
+      socket.on("disconnect",   params => this.onDisconnect(socket, params));
     });
   }
 
@@ -20,6 +21,8 @@ module.exports = class GameController {
     const game = this.games[params.room];
     const playerName = game.addPlayer(params.playerName);
     const roomInfo = game.getRoomInfo();
+
+    this.sendRoomInfoChanged(roomInfo);
   
     socket.data.playerName = playerName;
     socket.data.game = game;
@@ -47,7 +50,19 @@ module.exports = class GameController {
     this.sendGameJoined(socket, roomInfo, hostPlayerName);
   }
 
+  onDisconnect(socket, params) {
+    if (this.#socketNotInActiveGame(socket, false)) return;
+
+    const { playerName, game } = socket.data;
+    game.removePlayer(playerName);
+    
+    console.info(`Player ${playerName} disconnected`);
+    this.sendRoomInfoChanged(game.getRoomInfo());
+  }
+
   onStartGame(socket, params) {
+    if (this.#socketNotInActiveGame(socket)) return;
+
     const game = socket.data.game;
     const { firstMinigame, gameEnd } = game.startGame();
 
@@ -60,6 +75,8 @@ module.exports = class GameController {
   }
 
   onGradeAnswer(socket, params) {
+    if (this.#socketNotInActiveGame(socket)) return;
+
     const { playerName, game } = socket.data;
     const { grade, nextMinigame } = game.gradeAnswer(playerName, params.answer);
     
@@ -89,5 +106,30 @@ module.exports = class GameController {
   sendShowGrade(socket, pointsEarned) {
     socket.emit("showGrade", {"points": pointsEarned})
     console.info(`- Sent points earned for graded answer`);
+  }
+
+  sendRoomInfoChanged(roomInfo) {
+    this.io.to(roomInfo.roomCode).emit("roomInfoChanged", {"roomInfo": roomInfo});
+    console.info(`- Sent new roomInfo to all players in room ${roomInfo.roomCode}`);
+  }
+
+  sendError(socket, code, message) {
+    socket.emit("error", {
+      "code": code,
+      "message": message
+    });
+    console.info(`- Sent ${code} error to socket ${socket.id}`);
+  }
+
+  #socketNotInActiveGame(socket, sendError=true) {
+    if (socket.data.game == null) {
+      if (sendError) this.sendError(socket, "userHasGotNoGame", "You were disconnected from the game!");
+      return true;
+    } else if (!(socket.data.game.roomCode in this.games)) {
+      socket.data.game = null;
+      if (sendError) this.sendError(socket, "userInStaleGame", "This game has already ended!");
+      return true;
+    }
+    return false;
   }
 }

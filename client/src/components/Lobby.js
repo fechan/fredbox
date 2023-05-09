@@ -4,6 +4,7 @@ export function Lobby({ roomInfo, currentPlayer }) {
   function startGame() {
     socket.emit("startGame");
   }
+  console.log(roomInfo.host, currentPlayer);
 
   const playerListItems = roomInfo.players.map(player =>
     <li className="list-group-item" key={ player.name }>

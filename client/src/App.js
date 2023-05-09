@@ -32,6 +32,10 @@ function App() {
         setCurrentScreen("Lobby");
       });
 
+      socket.on("roomInfoChanged", params => {
+        setRoomInfo(params.roomInfo);
+      });
+
       socket.on("showMinigame", params => {
         setCurrentMinigame(params.minigame);
         setCurrentScreen("Minigame");
