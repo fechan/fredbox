@@ -18,7 +18,8 @@ module.exports = class GameController {
   }
 
   onJoinRoom(socket, params) {
-    const game = this.games[params.room];
+    const roomToJoin = params.room.toUpperCase();
+    const game = this.games[roomToJoin];
     const playerName = game.addPlayer(params.playerName);
     const roomInfo = game.getRoomInfo();
 
@@ -34,7 +35,7 @@ module.exports = class GameController {
   }
 
   onCreateRoom(socket, params) { 
-    const newRoomCode = crypto.randomBytes(2).toString("hex");
+    const newRoomCode = crypto.randomBytes(2).toString("hex").toUpperCase();
     const newGame = new Game(newRoomCode, 20);
     this.games[newRoomCode] = newGame;
 
