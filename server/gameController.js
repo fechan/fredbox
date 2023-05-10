@@ -62,6 +62,7 @@ module.exports = class GameController {
 
     const { playerName, game } = socket.data;
     game.removePlayer(playerName);
+    socket.leave(game.roomCode);
     
     console.info(`Player ${playerName} disconnected`);
     if (game.getIsStale()) {
