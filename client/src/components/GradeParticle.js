@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
 
-export function GradeParticle({ keyName, gradeParticles, setGradeParticles, points, top, left }) {
+import wronganswer from "../sounds/wronganswer.mp3"
+import rightanswer from "../sounds/rightanswer.mp3"
+
+export function GradeParticle({ keyName, points, top, left }) {
   const g = 9.81 / 20;
   const INITIAL_Y_VELOCITY = -10;
 
@@ -15,7 +18,6 @@ export function GradeParticle({ keyName, gradeParticles, setGradeParticles, poin
     const intervalId = setInterval(() => {
       if (position.top > window.screen.height | position.left > window.screen.width | position.left < 0) {
         setDisplay("none");
-        clearInterval(intervalId);
       } else {
         const newVelocityY = yVelocity + g;
         const newVelocityX = xVelocity;
@@ -30,6 +32,11 @@ export function GradeParticle({ keyName, gradeParticles, setGradeParticles, poin
 
     return () => clearInterval(intervalId);
   }, [position, xVelocity, yVelocity]);
+
+  useEffect(() => {
+    const audio = new Audio((points > 0) ? rightanswer : wronganswer);
+    audio.play();
+  }, []);
 
   return (
     <span inert="true" className="fw-bold h1" style={{
