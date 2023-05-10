@@ -3,9 +3,10 @@
 
 @import "buttons";
 
-@import "MathMinigame";
-@import "StroopEffectMinigame";
-@import "OperatorMathMinigame";
+@import "minigames/MathMinigame";
+@import "minigames/StroopEffectMinigame";
+@import "minigames/OperatorMathMinigame";
+@import "minigames/UnscrambleMinigame.scss";
 
 .App {
   text-align: center;

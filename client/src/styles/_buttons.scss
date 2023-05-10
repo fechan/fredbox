@@ -4,9 +4,9 @@
   box-shadow: 5px 5px 0px 0px rgba(0,0,0,.75);
   font-weight: bold;
   
-  &:hover {
+  &:hover, &:active {
     box-shadow: none;
-    color: white;
+    color: white !important;
   }
 }
 

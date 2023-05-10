@@ -1,0 +1,46 @@
+.UnscrambleMinigame {
+  $choice-size: 5rem;
+  $circle-diam: 250px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .choice-container {
+    position: relative;
+    width: $circle-diam;
+    height: $circle-diam;
+    top: 2rem;
+    margin-bottom: 8rem;
+    font-family: monospace;
+  }
+
+  .choice {
+    width: $choice-size;
+    height: $choice-size;
+
+    position: absolute;
+    left: calc(50% - ($choice-size / 2));
+    top: calc(50% - ($choice-size / 2));
+
+    font-weight: bold;
+    font-size: 5em;
+    background: none;
+    border: none;
+    text-shadow: none;
+    padding-top: 0;
+    padding-bottom: 0;
+
+    &:hover {
+      text-shadow: 5px 5px 0px rgba(0,0,0,0.5);
+      color: blue;
+    }
+  }
+
+  .intermediate-answer {
+    font-family: monospace;
+    font-size: 5em;
+    font-weight: bold;
+  }
+}
