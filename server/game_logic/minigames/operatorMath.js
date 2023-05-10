@@ -54,6 +54,7 @@ module.exports = class OperatorMathMinigame {
   }
 
   gradeAnswer(answer) {
+    if (!(answer in OPERATORS)) return -5;
     const {lhs, rhs, result} = this.question;
     const answerResult = OPERATORS[answer](lhs, rhs);
     if (answerResult === result) {
