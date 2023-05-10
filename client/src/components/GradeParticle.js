@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import wronganswer from "../sounds/wronganswer.mp3"
 import rightanswer from "../sounds/rightanswer.mp3"
 
-export function GradeParticle({ keyName, points, top, left }) {
+export function GradeParticle({ points, top, left }) {
   const g = 9.81 / 20;
   const INITIAL_Y_VELOCITY = -10;
 

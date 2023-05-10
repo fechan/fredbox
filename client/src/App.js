@@ -85,7 +85,7 @@ function App() {
         { screens[currentScreen] }
         {
           Object.values(gradeParticles).filter(prt => prt !== undefined).map(prt => {
-            return (<GradeParticle key={ prt.key } keyName={ prt.key }
+            return (<GradeParticle key={ prt.key }
               gradeParticles={ gradeParticles } setGradeParticles={ setGradeParticles }
               points={ prt.points } left={ mouseMoveEvt.clientX } top={ mouseMoveEvt.clientY } />)
           })
