@@ -1,0 +1,17 @@
+.OperatorMathMinigame {
+  .question {
+    font-weight: bold;
+    font-size: 3rem;
+  }
+
+  .choice {
+    @extend .btn;
+    @extend .btn-outline-primary;
+    @extend .m-1;
+    
+    padding: 0;
+    vertical-align: middle;
+    font-size: 5rem;
+    width: 35%;
+  }
+}
