@@ -92,7 +92,8 @@ module.exports = class GameController {
 
     const { playerName, game } = socket.data;
     if (game.gameEnded) {
-      this.sendError(socket, "userSentAnswerToEndedGame", "You were disconnected from the game!")
+      this.sendError(socket, "userSentAnswerToEndedGame", "You were disconnected from the game!");
+      return;
     }
 
     const { grade, nextMinigame } = game.gradeAnswer(playerName, params.answer);
