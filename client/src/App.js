@@ -17,6 +17,7 @@ function App() {
   const [ playerName, setPlayerName ] = useState();
   const [ currentMinigame, setCurrentMinigame ] = useState();
   const [ scores, setScores ] = useState();
+  const [ error, setError ] = useState(null);
 
   const [ gradeParticles, setGradeParticles ] = useState({});
   const [ mouseMoveEvt, setMouseMoveEvt ] = useState({ x: 0, y: 0 });
@@ -30,37 +31,55 @@ function App() {
   }
 
   useEffect( () => {
-      socket.on("gameJoined", params => {
-        setRoomInfo(params.roomInfo);
-        setPlayerName(params.joinedPlayer);
-        setCurrentScreen("Lobby");
-      });
+    socket.on("error", params => {
+      setCurrentScreen("MainMenu");
+      setRoomInfo();
+      setPlayerName();
+      setCurrentMinigame();
+      setScores();
+      setGradeParticles({});
+      setError(params.message);
+    });
 
-      socket.on("roomInfoChanged", params => {
-        setRoomInfo(params.roomInfo);
-      });
+    socket.on("gameJoined", params => {
+      setRoomInfo(params.roomInfo);
+      setPlayerName(params.joinedPlayer);
+      setCurrentScreen("Lobby");
+    });
 
-      socket.on("showMinigame", params => {
-        setCurrentMinigame(params.minigame);
-        setCurrentScreen("Minigame");
-      });
+    socket.on("roomInfoChanged", params => {
+      setRoomInfo(params.roomInfo);
+    });
 
-      socket.on("endGame", params => {
-        setScores(params.scores);
-        setCurrentScreen("EndGame");
-        setGradeParticles({});
-      });
+    socket.on("showMinigame", params => {
+      setCurrentMinigame(params.minigame);
+      setCurrentScreen("Minigame");
+    });
 
-      socket.on("showGrade", params => {
-        const gradeParticlesNew = { ...gradeParticles }
-        gradeParticlesNew[Date.now()] = {
-          key: Date.now(),
-          points: params.points
-        }
-        setGradeParticles(gradeParticlesNew);
-      })
-    }
-  );
+    socket.on("endGame", params => {
+      setScores(params.scores);
+      setCurrentScreen("EndGame");
+      setGradeParticles({});
+    });
+
+    socket.on("showGrade", params => {
+      const gradeParticlesNew = { ...gradeParticles }
+      gradeParticlesNew[Date.now()] = {
+        key: Date.now(),
+        points: params.points
+      }
+      setGradeParticles(gradeParticlesNew);
+    });
+  });
+
+  /**
+   * TODO: this displays an error as a browser alert, but
+   * I want to make this a modal instead at some point
+   */
+  if (error != null) {
+    alert(error);
+    setError(null);
+  }
 
   const screens = {
     "MainMenu":   <MainMenu
