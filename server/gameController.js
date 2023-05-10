@@ -91,8 +91,11 @@ module.exports = class GameController {
     if (this.#socketNotInActiveRoom(socket)) return;
 
     const { playerName, game } = socket.data;
+
     if (game.gameEnded) {
-      this.sendError(socket, "userSentAnswerToEndedGame", "You were disconnected from the game!");
+      // NOTE: occasionally players send a grade request immediately after the game ends on the server
+      //       probably don't want to error there. Should we be erroring other than this scenario?
+      //this.sendError(socket, "userSentAnswerToEndedGame", "You were disconnected from the game!");
       return;
     }
 
