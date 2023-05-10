@@ -1,6 +1,7 @@
 import { MathMinigame } from "./minigames/MathMinigame";
 import { OperatorMathMinigame } from "./minigames/OperatorMathMinigame";
 import { StroopEffectMinigame } from "./minigames/StroopEffectMinigame";
+import { UnscrambleMinigame } from "./minigames/UnscrambleMinigame";
 
 export function Minigame({minigame}) {
   const minigames = {
@@ -13,7 +14,9 @@ export function Minigame({minigame}) {
     "StroopEffectMinigame": <StroopEffectMinigame minigameID={ minigame.id }
                                                   playerShouldSelect={ minigame.playerShouldSelect }
                                                   correctColor={ minigame.correctColor }
-                                                  choices={ minigame.choices } />
+                                                  choices={ minigame.choices } />,
+    "UnscrambleMinigame": <UnscrambleMinigame minigameID={ minigame.id }
+                                              choices={ minigame.choices } />
   };
 
   return (

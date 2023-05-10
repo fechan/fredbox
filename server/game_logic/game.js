@@ -1,6 +1,7 @@
 const StroopEffectMinigame = require("./minigames/stroopEffect");
 const MathMinigame = require("./minigames/math");
 const OperatorMathMinigame = require("./minigames/operatorMath");
+const UnscrambleMinigame = require("./minigames/unscramble");
 
 const Player = require("./player");
 const RandomUtils = require("../utils/random");
@@ -10,7 +11,7 @@ module.exports = class Game {
     this.roomCode = roomCode;
     this.lengthSeconds = lengthSeconds;
 
-    this.availableMinigames = [StroopEffectMinigame, MathMinigame, OperatorMathMinigame]
+    this.availableMinigames = [StroopEffectMinigame, MathMinigame, OperatorMathMinigame, UnscrambleMinigame]
 
     this.players = {};
     this.minigames = [];
