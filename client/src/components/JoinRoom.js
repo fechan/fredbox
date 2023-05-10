@@ -23,12 +23,12 @@ export function JoinRoom({ onBackClicked }) {
   return (
     <div>
       <div>
-        <label className="form-label" for="player-name">Player name</label>
+        <label className="form-label" htmlFor="player-name">Player name</label>
         <input className="form-control" onChange={ updatePlayerName } value={ playerName } name="player-name"></input>
       </div>
 
       <div>
-        <label className="form-label" for="room-code">Room code</label>
+        <label className="form-label" htmlFor="room-code">Room code</label>
         <input className="form-control" onChange={ updateRoomCode } value={ roomCode } name="room-code"></input>
       </div>
 
