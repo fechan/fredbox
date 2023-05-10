@@ -10,18 +10,18 @@ module.exports = class Game {
   constructor(roomCode, lengthSeconds) {
     this.roomCode = roomCode;
     this.lengthSeconds = lengthSeconds;
+    this.gameEnded = false;
 
     this.availableMinigames = [
       StroopEffectMinigame,
       MathMinigame,
       OperatorMathMinigame,
-      UnscrambleMinigame];
+      UnscrambleMinigame
+    ];
     
-      
-      this.players = {};
-      this.minigames = [];
-
     this.host;
+    this.players = {};
+    this.minigames = [];
   }
 
   /**
@@ -114,6 +114,7 @@ module.exports = class Game {
   }
 
   #endGame() {
+    this.gameEnded = true;
     let scores = Object.values(this.players)
       .map(player => { return {"playerName": player.name, "score": player.score} })
       .sort((a, b) => b.score - a.score);
@@ -151,5 +152,6 @@ module.exports = class Game {
   #resetGame() {
     Object.values(this.players).forEach(player => player.reset());
     this.minigames = [];
+    this.gameEnded = false;
   }
 }
