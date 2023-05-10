@@ -1,6 +1,6 @@
 import { socket } from "../../socket";
 
-export function MathMinigame({question, choices}) {
+export function MathMinigame({minigameID, question, choices}) {
   function setAnswer(evt) {
     socket.emit("gradeAnswer", {
       "answer": evt.target.value
@@ -13,7 +13,7 @@ export function MathMinigame({question, choices}) {
       <div className="choice-container">
         {
           choices.map((choice, i) => (
-            <button key={ i } className="choice" value={ choice } onClick={ setAnswer }>{ choice }</button>
+            <button key={ String(minigameID) + i } className="choice" value={ choice } onClick={ setAnswer }>{ choice }</button>
           ))
         }
       </div>

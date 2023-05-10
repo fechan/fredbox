@@ -46,6 +46,7 @@ module.exports = class StroopEffectMinigame {
 
   serialize() {
     return {
+      "id": this.id,
       "name": this.name,
       "playerShouldSelect": this.playerShouldSelect,
       "correctColor": this.correctColor,

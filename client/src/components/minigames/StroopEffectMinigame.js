@@ -1,6 +1,6 @@
 import { socket } from "../../socket";
 
-export function StroopEffectMinigame({playerShouldSelect, correctColor, choices}) {
+export function StroopEffectMinigame({minigameID, playerShouldSelect, correctColor, choices}) {
   function setAnswer(evt) {
     socket.emit("gradeAnswer", {
       "answer": choices[parseInt(evt.target.value)]
@@ -8,7 +8,7 @@ export function StroopEffectMinigame({playerShouldSelect, correctColor, choices}
   }
 
   const choiceListItems = choices.map((choice, choiceIdx) =>
-    <button key={ choiceIdx } className="choice" style={{color: choice.textColor}}
+    <button key={ String(minigameID) + choiceIdx } className="choice" style={{color: choice.textColor}}
         value={choiceIdx} onClick={ setAnswer }>
       { choice.word }
     </button>
