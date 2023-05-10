@@ -11,10 +11,15 @@ module.exports = class Game {
     this.roomCode = roomCode;
     this.lengthSeconds = lengthSeconds;
 
-    this.availableMinigames = [StroopEffectMinigame, MathMinigame, OperatorMathMinigame, UnscrambleMinigame]
-
-    this.players = {};
-    this.minigames = [];
+    this.availableMinigames = [
+      StroopEffectMinigame,
+      MathMinigame,
+      OperatorMathMinigame,
+      UnscrambleMinigame];
+    
+      
+      this.players = {};
+      this.minigames = [];
 
     this.host;
   }
@@ -119,12 +124,26 @@ module.exports = class Game {
     this.players[playerName].score += points;
   }
 
+  /**
+   * Get the minigame at the given index.
+   * If the index doesn't exist (e.g. the fastest person needs a new minigame)
+   * then this will instantiate new ones and add it to the minigame list.
+   * 
+   * New minigames are added to the list via a tetris-like selection algorithm.
+   * i.e. if we need to instantiate new minigames, then we randomize the available
+   * minigames, create instances of them, and add them to the end of the mingames list.
+   * This ensures we have a fairly even-feeling distribution of minigames.
+   * 
+   * @param {Number} minigameIndex Minigame index
+   * @returns Minigame instance
+   */
   #getMinigameAtIndex(minigameIndex) {
     if (minigameIndex >= this.minigames.length) {
-      const minigameClass = RandomUtils.choice(this.availableMinigames);
-      const newMinigame = new minigameClass(this.minigames.length);
-      this.minigames.push(newMinigame);
-      return newMinigame;
+      RandomUtils.shuffle(this.availableMinigames);
+      for (let i=0; i < this.availableMinigames.length; i++) {
+        const minigameClass = this.availableMinigames[i];
+        this.minigames.push(new minigameClass(this.minigames.length + i));
+      }
     }
     return this.minigames[minigameIndex];
   }
