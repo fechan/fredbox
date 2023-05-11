@@ -20,4 +20,8 @@ new GameController(io);
 
 app.use("/", express.static("./client/build"));
 
+app.get("/up", (req, res) => {
+  res.send("Fredbox server is up and running!");
+});
+
 server.listen(port, () => console.log("Server listening on port", port));
