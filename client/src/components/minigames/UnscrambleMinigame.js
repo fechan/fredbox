@@ -58,7 +58,7 @@ export function UnscrambleMinigame({ minigameID, choices }) {
   
   return (
     <div className="UnscrambleMinigame">
-      <h2>Unscramble the word!</h2>
+      <h2>Tap the letters in order to unscramble the word!</h2>
       <div className="choice-container">
         {
           remainingChoices.map((letter, i) => {
