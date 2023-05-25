@@ -80,10 +80,7 @@ module.exports = class GameController {
     const { firstMinigame, gameEnd } = game.startGame();
 
     const room = game.roomCode;
-    this.io.to(room).emit("showMinigame", {
-      "minigame": firstMinigame,
-      "firstMinigame": true
-    });
+    this.io.to(room).emit("showMinigame", {"minigame": firstMinigame});
 
     gameEnd.then((scores) => this.sendEndGame(room, scores));
 
@@ -115,10 +112,7 @@ module.exports = class GameController {
   }
 
   sendShowMinigame(socket, minigame) {
-    socket.emit("showMinigame", {
-      "minigame": minigame,
-      "firstMinigame": false
-    });
+    socket.emit("showMinigame", {"minigame": minigame});
     console.info(`- Sent new minigame ${minigame.name}`);
   }
 
