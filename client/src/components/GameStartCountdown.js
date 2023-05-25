@@ -6,19 +6,19 @@ export function GameStartCountdown({ seconds, onCountdownEnded }) {
 
   useEffect( () => {
     const timeout = setTimeout(() => {
-      setTimeLeft(timeLeft - 1);
-      if (timeLeft <= 1) {
+      setTimeLeft(timeLeft - .1);
+      if (timeLeft <= .5) {
         onCountdownEnded();
       }
-    }, 1000);
+    }, 100);
 
     return () => clearTimeout(timeout);
   }, [timeLeft, onCountdownEnded]);
 
-  return (timeLeft > 0) ? (
+  return (Math.round(timeLeft) > 0) ? (
     <div className="GameStartCountdown">
       <h2>The game will start in</h2>
-      <span className="time-left">{ timeLeft }</span>
+      <span className="time-left">{ Math.round(timeLeft) }</span>
     </div>
   ) : (
     <></>
