@@ -7,7 +7,7 @@ export function Lobby({ roomInfo, currentPlayer, onBackClicked }) {
 
   const playerListItems = roomInfo.players.map(player =>
     <li className="list-group-item h4 border-0 pb-0" key={ player.name }>
-      { roomInfo.host === player.name ? <span className="badge bg-primary me-1">Host</span> : null}
+      { (roomInfo.host === player.name) && <span className="badge bg-primary me-1">Host</span> }
       { player.name }
     </li>
   );

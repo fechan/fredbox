@@ -15,12 +15,10 @@ export function GameStartCountdown({ seconds, onCountdownEnded }) {
     return () => clearTimeout(timeout);
   }, [timeLeft, onCountdownEnded]);
 
-  return (Math.round(timeLeft) > 0) ? (
+  return (Math.round(timeLeft) > 0) && (
     <div className="GameStartCountdown">
       <h2>The game will start in</h2>
       <span className="time-left">{ Math.round(timeLeft) }</span>
     </div>
-  ) : (
-    <></>
   )
 }
