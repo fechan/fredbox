@@ -8,9 +8,9 @@ export function OperatorMathMinigame({ minigameID, question, choices }) {
   }
 
   return (
-    <div class="OperatorMathMinigame">
+    <div className="OperatorMathMinigame">
       <p className="question">{ question }</p>
-      <div class="choice-container">
+      <div className="choice-container">
         {
           choices.map((choice, i) => (
             <button key={ String(minigameID) + i } className="choice" value={ choice } onClick={ setAnswer }>{ choice }</button>
