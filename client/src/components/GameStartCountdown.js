@@ -5,14 +5,14 @@ export function GameStartCountdown({ seconds, onCountdownEnded }) {
   const [timeLeft, setTimeLeft] = useState(seconds);
 
   useEffect( () => {
-    const intervalId = setInterval(() => {
+    const timeout = setTimeout(() => {
       setTimeLeft(timeLeft - 1);
       if (timeLeft <= 1) {
         onCountdownEnded();
       }
     }, 1000);
 
-    return () => clearInterval(intervalId);
+    return () => clearTimeout(timeout);
   }, [timeLeft, onCountdownEnded]);
 
   return (timeLeft > 0) ? (
