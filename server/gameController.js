@@ -12,6 +12,7 @@ module.exports = class GameController {
       socket.on("joinRoom",     params => this.onJoinRoom(socket, params));
       socket.on("createRoom",   params => this.onCreateRoom(socket, params));
       socket.on("startGame",    params => this.onStartGame(socket, params));
+      socket.on("playerDone",   params => this.onPlayerDone(socket, params));
       socket.on("gradeAnswer",  params => this.onGradeAnswer(socket, params));
       socket.on("disconnect",   params => this.onDisconnectOrLeaveRoom(socket, params));
       socket.on("leaveRoom",    params => this.onDisconnectOrLeaveRoom(socket, params));
@@ -77,14 +78,27 @@ module.exports = class GameController {
     if (this.#socketNotInActiveRoom(socket)) return;
 
     const game = socket.data.game;
-    const { firstMinigame, gameEnd } = game.startGame();
+    const firstMinigame = game.startGame();
 
     const room = game.roomCode;
     this.io.to(room).emit("showMinigame", {"minigame": firstMinigame});
 
-    gameEnd.then((scores) => this.sendEndGame(room, scores));
-
     console.info(`Game for room ${room} started`);
+  }
+
+  onPlayerDone(socket, params) {
+    if (this.#socketNotInActiveRoom(socket)) return;
+
+    const { playerName, game } = socket.data;
+    game.setPlayerDone(playerName);
+    const scores = game.endGameIfPlayersDone();
+    console.info(`Player ${playerName} reported done`);
+
+    if (scores !== null) {
+      const room = game.roomCode;
+      console.info(`Game for room ${room} ended`);
+      this.sendEndGame(room, scores);
+    }
   }
 
   onGradeAnswer(socket, params) {

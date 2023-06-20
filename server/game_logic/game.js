@@ -26,22 +26,35 @@ module.exports = class Game {
 
   /**
    * Start the game
-   * @returns gameEnd: Promise that resolves when the game ends
-   * @returns firstMinigame: First minigame of the game (serialized)
+   * @returns First minigame of the game (serialized)
    */
   startGame() {
     this.#resetGame()
 
     const firstMinigame = this.#getMinigameAtIndex(0);
-    const gameEnd = new Promise(resolve => setTimeout(
-      () => resolve(this.#endGame()),
-      this.lengthSeconds * 1000)
-    );
+    return firstMinigame.serialize();
+  }
 
-    return {
-      gameEnd: gameEnd,
-      firstMinigame: firstMinigame.serialize()
-    };
+  /**
+   * Check if all players in the game are done, and end the game if they are
+   * @returns Scoreboard if done, null otherwise
+   */
+  endGameIfPlayersDone() {
+    for (const player of Object.values(this.players)) {
+      if (player.isDone == false) {
+        return null;
+      }
+    }
+
+    this.gameEnded = true;
+    let scores = Object.values(this.players)
+      .map(player => { return {"playerName": player.name, "score": player.score} })
+      .sort((a, b) => b.score - a.score);
+    return scores;
+  }
+
+  setPlayerDone(playerName) {
+    this.players[playerName].isDone = true;
   }
 
   gradeAnswer(playerName, answer) {
@@ -111,14 +124,6 @@ module.exports = class Game {
   #getMinigameFor(playerName) {
     const player = this.players[playerName];
     return this.#getMinigameAtIndex(player.minigameProgress);
-  }
-
-  #endGame() {
-    this.gameEnded = true;
-    let scores = Object.values(this.players)
-      .map(player => { return {"playerName": player.name, "score": player.score} })
-      .sort((a, b) => b.score - a.score);
-    return scores;
   }
 
   #addPoints(playerName, points) {

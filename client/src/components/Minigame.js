@@ -1,12 +1,27 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { socket } from "../socket";
+
 import { GameStartCountdown } from "./GameStartCountdown";
 import { MathMinigame } from "./minigames/MathMinigame";
 import { OperatorMathMinigame } from "./minigames/OperatorMathMinigame";
 import { StroopEffectMinigame } from "./minigames/StroopEffectMinigame";
 import { UnscrambleMinigame } from "./minigames/UnscrambleMinigame";
 
-export function Minigame({minigame}) {
-  const [showCountdown, setShowCountdown] = useState(minigame.id === 0);
+export function Minigame({ minigame, gameSeconds, onPlayerDone }) {
+  const [showGameStartCountdown, setShowGameStartCountdown] = useState(minigame.id === 0);
+  const [gameTimeLeft, setGameTimeLeft] = useState(gameSeconds);
+
+  useEffect( () => {
+    const timeout = setTimeout(() => {
+      setGameTimeLeft(gameTimeLeft - .1);
+      if (gameTimeLeft <= .5) {        
+        socket.emit("playerDone");
+        onPlayerDone();
+      }
+    }, 100);
+
+    return () => clearTimeout(timeout);
+  }, [gameTimeLeft, onPlayerDone]);
 
   const minigames = {
     "MathMinigame": <MathMinigame minigameID={ minigame.id }
@@ -25,8 +40,9 @@ export function Minigame({minigame}) {
 
   return (
     <div>
-      { showCountdown ? 
-        <GameStartCountdown seconds={3} onCountdownEnded={() => setShowCountdown(false)} /> :
+      <span>{ gameTimeLeft }</span>
+      { showGameStartCountdown ? 
+        <GameStartCountdown seconds={3} onCountdownEnded={() => setShowGameStartCountdown(false)} /> :
         minigames[minigame.name]
       }
     </div>

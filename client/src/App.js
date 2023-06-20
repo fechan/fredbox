@@ -8,6 +8,7 @@ import { Lobby } from "./components/Lobby";
 import { Minigame } from "./components/Minigame";
 import { EndGame } from "./components/EndGame";
 import { GradeParticle } from "./components/GradeParticle";
+import { GameDone } from "./components/GameDone";
 
 import './styles/App.scss';
 
@@ -89,10 +90,11 @@ function App() {
     "JoinRoom":   <JoinRoom onBackClicked={ () => setCurrentScreen("MainMenu") } />,
     "Lobby":      <Lobby roomInfo={ roomInfo } currentPlayer={ playerName }
                     onBackClicked={ () => { setCurrentScreen("MainMenu"); leaveRoom() } }/>,
-    "Minigame":   <Minigame minigame={ currentMinigame } />,
+    "Minigame":   <Minigame minigame={ currentMinigame } gameSeconds={10} onPlayerDone={ () => setCurrentScreen("GameDone") } />,
     "EndGame":    <EndGame scores={ scores } 
                     onPlayAgainClicked={ () => setCurrentScreen("Lobby") }
-                    onBackClicked={ () => { setCurrentScreen("MainMenu"); leaveRoom() } }/>
+                    onBackClicked={ () => { setCurrentScreen("MainMenu"); leaveRoom() } }/>,
+    "GameDone":   <GameDone />
   };
 
   return (
