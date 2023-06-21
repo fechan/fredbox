@@ -32,11 +32,19 @@ export function Minigame({ minigame, gameSeconds, onPlayerDone }) {
 
   return (
     <div>
-      <span>{ gameTimer.totalSeconds }</span>
-      { showGameStartCountdown ? 
-        <GameStartCountdown seconds={3} onCountdownEnded={() => setShowGameStartCountdown(false)} /> :
-        minigames[minigame.name]
+      {!showGameStartCountdown &&
+        <header>
+          <span className="text-muted">TIME LEFT</span> <span className="h3">{ gameTimer.totalSeconds }</span>
+          <hr></hr>
+        </header>
       }
+
+      <main>
+        { showGameStartCountdown ?
+          <GameStartCountdown seconds={3} onCountdownEnded={() => setShowGameStartCountdown(false)} /> :
+          minigames[minigame.name]
+        }
+      </main>
     </div>
   )
 }
