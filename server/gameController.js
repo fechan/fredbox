@@ -43,7 +43,7 @@ module.exports = class GameController {
 
   onCreateRoom(socket, params) { 
     const newRoomCode = crypto.randomBytes(2).toString("hex").toUpperCase();
-    const newGame = new Game(newRoomCode, 60);
+    const newGame = new Game(newRoomCode, 60 + 3);
     this.games[newRoomCode] = newGame;
 
     const hostPlayerName = newGame.addPlayer(params.hostPlayerName);
@@ -81,6 +81,7 @@ module.exports = class GameController {
     const firstMinigame = game.startGame();
 
     const room = game.roomCode;
+    this.io.to(room).emit("setGameLength", {"seconds": game.lengthSeconds});
     this.io.to(room).emit("showMinigame", {"minigame": firstMinigame});
 
     console.info(`Game for room ${room} started`);

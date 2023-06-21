@@ -1,24 +1,15 @@
-import { useEffect, useState } from "react"
+import { useTimer } from "react-timer-hook";
 
 export function GameStartCountdown({ seconds, onCountdownEnded }) {
 
-  const [timeLeft, setTimeLeft] = useState(seconds);
+  const gameStartTime = new Date();
+  gameStartTime.setSeconds(gameStartTime.getSeconds() + 3);
+  const timer = useTimer({ expiryTimestamp: gameStartTime, onExpire: onCountdownEnded, autoStart: true });
 
-  useEffect( () => {
-    const timeout = setTimeout(() => {
-      setTimeLeft(timeLeft - .1);
-      if (timeLeft <= .5) {
-        onCountdownEnded();
-      }
-    }, 100);
-
-    return () => clearTimeout(timeout);
-  }, [timeLeft, onCountdownEnded]);
-
-  return (Math.round(timeLeft) > 0) && (
+  return (timer.totalSeconds > 0) && (
     <div className="GameStartCountdown">
       <h2>The game will start in</h2>
-      <span className="time-left">{ Math.round(timeLeft) }</span>
+      <span className="time-left">{ timer.totalSeconds }</span>
     </div>
   )
 }

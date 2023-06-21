@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useTimer } from "react-timer-hook";
 import { socket } from "../socket";
 
 import { GameStartCountdown } from "./GameStartCountdown";
@@ -9,19 +10,10 @@ import { UnscrambleMinigame } from "./minigames/UnscrambleMinigame";
 
 export function Minigame({ minigame, gameSeconds, onPlayerDone }) {
   const [showGameStartCountdown, setShowGameStartCountdown] = useState(minigame.id === 0);
-  const [gameTimeLeft, setGameTimeLeft] = useState(gameSeconds);
 
-  useEffect( () => {
-    const timeout = setTimeout(() => {
-      setGameTimeLeft(gameTimeLeft - .1);
-      if (gameTimeLeft <= .5) {        
-        socket.emit("playerDone");
-        onPlayerDone();
-      }
-    }, 100);
-
-    return () => clearTimeout(timeout);
-  }, [gameTimeLeft, onPlayerDone]);
+  const gameExpireTime = new Date();
+  gameExpireTime.setSeconds(gameExpireTime.getSeconds() + gameSeconds);
+  const gameTimer = useTimer({ expiryTimestamp: gameExpireTime, onExpire: onPlayerDone, autoStart: true });
 
   const minigames = {
     "MathMinigame": <MathMinigame minigameID={ minigame.id }
@@ -40,7 +32,7 @@ export function Minigame({ minigame, gameSeconds, onPlayerDone }) {
 
   return (
     <div>
-      <span>{ gameTimeLeft }</span>
+      <span>{ gameTimer.totalSeconds }</span>
       { showGameStartCountdown ? 
         <GameStartCountdown seconds={3} onCountdownEnded={() => setShowGameStartCountdown(false)} /> :
         minigames[minigame.name]

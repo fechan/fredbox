@@ -18,6 +18,7 @@ function App() {
   const [ playerName, setPlayerName ] = useState();
   const [ currentMinigame, setCurrentMinigame ] = useState();
   const [ scores, setScores ] = useState();
+  const [ gameLength, setGameLength ] = useState(); 
   const [ error, setError ] = useState(null);
 
   const [ gradeParticles, setGradeParticles ] = useState({});
@@ -57,6 +58,10 @@ function App() {
       setCurrentScreen("Minigame");
     });
 
+    socket.on("setGameLength", params => {
+      setGameLength(params.seconds);
+    })
+
     socket.on("endGame", params => {
       setScores(params.scores);
       setCurrentScreen("EndGame");
@@ -90,7 +95,7 @@ function App() {
     "JoinRoom":   <JoinRoom onBackClicked={ () => setCurrentScreen("MainMenu") } />,
     "Lobby":      <Lobby roomInfo={ roomInfo } currentPlayer={ playerName }
                     onBackClicked={ () => { setCurrentScreen("MainMenu"); leaveRoom() } }/>,
-    "Minigame":   <Minigame minigame={ currentMinigame } gameSeconds={10} onPlayerDone={ () => setCurrentScreen("GameDone") } />,
+    "Minigame":   <Minigame minigame={ currentMinigame } gameSeconds={gameLength} onPlayerDone={ () => { socket.emit("playerDone"); setCurrentScreen("GameDone") } } />,
     "EndGame":    <EndGame scores={ scores } 
                     onPlayAgainClicked={ () => setCurrentScreen("Lobby") }
                     onBackClicked={ () => { setCurrentScreen("MainMenu"); leaveRoom() } }/>,
