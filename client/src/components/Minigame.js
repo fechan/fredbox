@@ -16,21 +16,30 @@ export function Minigame({ minigame, gameSeconds, onPlayerDone, scores, playerNa
   const gameTimer = useTimer({ expiryTimestamp: gameExpireTime, onExpire: onPlayerDone, autoStart: true });
 
   const minigames = {
-    "MathMinigame": <MathMinigame minigameID={ minigame.id }
-                                  question={ minigame.question }
-                                  choices={ minigame.choices } />,
-    "OperatorMathMinigame": <OperatorMathMinigame minigameID={ minigame.id }
-                                                  question={ minigame.question }
-                                                  choices={ minigame.choices } />,
-    "StroopEffectMinigame": <StroopEffectMinigame minigameID={ minigame.id }
-                                                  playerShouldSelect={ minigame.playerShouldSelect }
-                                                  correctColor={ minigame.correctColor }
-                                                  choices={ minigame.choices } />,
-    "UnscrambleMinigame": <UnscrambleMinigame minigameID={ minigame.id }
-                                              choices={ minigame.choices } />,
-    "DialMinigame": <DialMinigame minigameID={ minigame.id }
-                                  choices={ minigame.choices }
-                                  dialWord={ minigame.dialWord } />
+    "MathMinigame": <MathMinigame key={ minigame.id }
+      minigameID={ minigame.id }
+      question={ minigame.question }
+      choices={ minigame.choices } />,
+
+    "OperatorMathMinigame": <OperatorMathMinigame key={ minigame.id }
+      minigameID={ minigame.id }
+      question={ minigame.question }
+      choices={ minigame.choices } />,
+
+    "StroopEffectMinigame": <StroopEffectMinigame key={ minigame.id }
+      minigameID={ minigame.id }
+      playerShouldSelect={ minigame.playerShouldSelect }
+      correctColor={ minigame.correctColor }
+      choices={ minigame.choices } />,
+
+    "UnscrambleMinigame": <UnscrambleMinigame key={ minigame.id }
+      minigameID={ minigame.id }
+      choices={ minigame.choices } />,
+
+    "DialMinigame": <DialMinigame key={ minigame.id }
+      minigameID={ minigame.id }
+      choices={ minigame.choices }
+      dialWord={ minigame.dialWord } />,
   };
 
   function getPlayerPosition() {
