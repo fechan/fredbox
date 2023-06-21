@@ -2,11 +2,12 @@
   .stats {
     @extend .gap-4;
 
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
 
     >div {
+      flex-basis: 0;
       display: flex;
       flex-direction: column;
 

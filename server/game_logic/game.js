@@ -5,6 +5,7 @@ const UnscrambleMinigame = require("./minigames/unscramble");
 
 const Player = require("./player");
 const RandomUtils = require("../utils/random");
+const DialMinigame = require("./minigames/dial");
 
 module.exports = class Game {
   constructor(roomCode, lengthSeconds) {
@@ -16,7 +17,8 @@ module.exports = class Game {
       StroopEffectMinigame,
       MathMinigame,
       OperatorMathMinigame,
-      UnscrambleMinigame
+      UnscrambleMinigame,
+      DialMinigame
     ];
     
     this.host;

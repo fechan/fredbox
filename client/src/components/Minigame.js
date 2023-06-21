@@ -6,6 +6,7 @@ import { MathMinigame } from "./minigames/MathMinigame";
 import { OperatorMathMinigame } from "./minigames/OperatorMathMinigame";
 import { StroopEffectMinigame } from "./minigames/StroopEffectMinigame";
 import { UnscrambleMinigame } from "./minigames/UnscrambleMinigame";
+import { DialMinigame } from "./minigames/DialMinigame";
 
 export function Minigame({ minigame, gameSeconds, onPlayerDone, scores, playerName }) {
   const [showGameStartCountdown, setShowGameStartCountdown] = useState(minigame.id === 0);
@@ -26,7 +27,10 @@ export function Minigame({ minigame, gameSeconds, onPlayerDone, scores, playerNa
                                                   correctColor={ minigame.correctColor }
                                                   choices={ minigame.choices } />,
     "UnscrambleMinigame": <UnscrambleMinigame minigameID={ minigame.id }
-                                              choices={ minigame.choices } />
+                                              choices={ minigame.choices } />,
+    "DialMinigame": <DialMinigame minigameID={ minigame.id }
+                                  choices={ minigame.choices }
+                                  dialWord={ minigame.dialWord } />
   };
 
   function getPlayerPosition() {
@@ -50,7 +54,6 @@ export function Minigame({ minigame, gameSeconds, onPlayerDone, scores, playerNa
           <div><span className="stat-label">TIME LEFT</span> <span className="stat-value">{ gameTimer.totalSeconds }</span></div>
           <div><span className="stat-label">POINTS</span>    <span className="stat-value">{ points }</span></div>
           <div><span className="stat-label">POSITION</span>  <span className="stat-value">{ place }</span></div>
-          <div><span className="stat-label">BEHIND</span>    <span className="stat-value">{ playerAhead }</span></div>
         </header>
         <hr></hr>
         </>

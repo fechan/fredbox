@@ -1,0 +1,40 @@
+.DialMinigame {
+  .dial-display {
+    height: 6rem;
+    display: flex;
+    align-items: center;
+
+    .phone-icon {
+      font-size: 3em;
+      user-select: none;
+    }
+
+    .dialed-number {
+      font-size: 4em;
+      width: 100%;
+      text-align: end;
+    }
+  }
+
+  .choice-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    @extend .gap-2;
+    
+    .choice {
+      @extend .btn;
+      @extend .btn-outline-primary;
+      @extend .m-1;
+
+      text-transform: uppercase;
+      display: flex;
+      flex-direction: column;
+      padding: 0;
+      vertical-align: middle;
+
+      .number {
+        font-size: 2em;
+      }
+    }
+  }
+}
