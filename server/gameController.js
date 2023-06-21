@@ -119,6 +119,12 @@ module.exports = class GameController {
     console.info(`Graded ${playerName}'s answer in ${game.roomCode}`);
     this.sendShowGrade(socket, grade)
     this.sendShowMinigame(socket, nextMinigame);
+    this.sendUpdateScores(game.roomCode, game.getScores());
+  }
+
+  sendUpdateScores(roomCode, scores) {
+    this.io.to(roomCode).emit("updateScores", {"scores": scores});
+    console.info(`Scores sent to ${roomCode}`);
   }
 
   sendEndGame(roomCode, scores) {

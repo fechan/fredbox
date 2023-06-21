@@ -62,6 +62,10 @@ function App() {
       setGameLength(params.seconds);
     })
 
+    socket.on("updateScores", params => {
+      setScores(params.scores);
+    });
+
     socket.on("endGame", params => {
       setScores(params.scores);
       setCurrentScreen("EndGame");
@@ -95,7 +99,9 @@ function App() {
     "JoinRoom":   <JoinRoom onBackClicked={ () => setCurrentScreen("MainMenu") } />,
     "Lobby":      <Lobby roomInfo={ roomInfo } currentPlayer={ playerName }
                     onBackClicked={ () => { setCurrentScreen("MainMenu"); leaveRoom() } }/>,
-    "Minigame":   <Minigame minigame={ currentMinigame } gameSeconds={gameLength} onPlayerDone={ () => { socket.emit("playerDone"); setCurrentScreen("GameDone") } } />,
+    "Minigame":   <Minigame minigame={ currentMinigame } gameSeconds={gameLength}
+                    onPlayerDone={ () => { socket.emit("playerDone"); setCurrentScreen("GameDone") } }
+                    scores={ scores } playerName={ playerName } />,
     "EndGame":    <EndGame scores={ scores } 
                     onPlayAgainClicked={ () => setCurrentScreen("Lobby") }
                     onBackClicked={ () => { setCurrentScreen("MainMenu"); leaveRoom() } }/>,

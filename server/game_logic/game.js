@@ -47,6 +47,14 @@ module.exports = class Game {
     }
 
     this.gameEnded = true;
+    return this.getScores();
+  }
+
+  /**
+   * Get the scoreboard
+   * @returns Player-score pairs in descending order by score (e.g. first place first etc.)
+   */
+  getScores() {
     let scores = Object.values(this.players)
       .map(player => { return {"playerName": player.name, "score": player.score} })
       .sort((a, b) => b.score - a.score);
