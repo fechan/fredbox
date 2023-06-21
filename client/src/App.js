@@ -59,7 +59,8 @@ function App() {
     });
 
     socket.on("setGameLength", params => {
-      setGameLength(params.seconds);
+      // setGameLength(params.seconds);
+      setGameLength(1000000);
     })
 
     socket.on("updateScores", params => {

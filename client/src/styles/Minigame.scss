@@ -1,0 +1,22 @@
+.Minigame {
+  .stats {
+    @extend .gap-4;
+
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+
+
+    >div {
+      display: flex;
+      flex-direction: column;
+
+      .stat-label {
+        @extend .text-muted;
+      }
+  
+      .stat-value {
+        @extend .h3;
+      }
+    }
+  }
+}

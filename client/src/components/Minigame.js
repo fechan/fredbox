@@ -31,25 +31,26 @@ export function Minigame({ minigame, gameSeconds, onPlayerDone, scores, playerNa
 
   function getPlayerPosition() {
     let playerAhead = "nobody";
-    if (!scores) return {place: 1, playerAhead: playerAhead};
+    if (!scores) return {place: 1, points: 0, playerAhead: playerAhead};
 
     for (let i = 0; i < scores.length; i++) {
       let playerNameAtPlace = scores[i].playerName;
       if (playerNameAtPlace === playerName) {
-        return {place: i + 1, playerAhead: playerAhead};
+        return {place: i + 1, points: scores[i].score, playerAhead: playerAhead};
       }
       playerAhead = playerNameAtPlace;
     }
   }
-  const {place, playerAhead} = getPlayerPosition();
+  const {place, points, playerAhead} = getPlayerPosition();
 
   return (
-    <div>
+    <div className="Minigame">
       {!showGameStartCountdown && <>
-        <header className="d-flex justify-content-center gap-4">
-          <div><span className="text-muted">TIME LEFT</span> <span className="h3">{ gameTimer.totalSeconds }</span></div>
-          <div><span className="text-muted">POSITION</span> <span className="h3">{ place }</span></div>
-          <div><span className="text-muted">BEHIND</span> <span className="h3">{ playerAhead }</span></div>
+        <header className="stats">
+          <div><span className="stat-label">TIME LEFT</span> <span className="stat-value">{ gameTimer.totalSeconds }</span></div>
+          <div><span className="stat-label">POINTS</span>    <span className="stat-value">{ points }</span></div>
+          <div><span className="stat-label">POSITION</span>  <span className="stat-value">{ place }</span></div>
+          <div><span className="stat-label">BEHIND</span>    <span className="stat-value">{ playerAhead }</span></div>
         </header>
         <hr></hr>
         </>
