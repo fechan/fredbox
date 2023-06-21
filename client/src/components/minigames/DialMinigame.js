@@ -27,7 +27,7 @@ export function DialMinigame({ minigameID, dialWord, choices }) {
 
   return (
     <div className="DialMinigame">
-      <h2>Dial { dialWord.toUpperCase() }</h2>
+      <h2>Dial this number: { dialWord.toUpperCase() }</h2>
       <div className="dial-display">
         <span class="phone-icon">📞</span>
         <span class="dialed-number">{intermedAnswer}</span>
