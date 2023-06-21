@@ -7,7 +7,7 @@ export function GradeParticle({ points, top, left }) {
   const g = 9.81 / 20;
   const INITIAL_Y_VELOCITY = -10;
 
-  const [xVelocity, setXVelocity] = useState(
+  const [xVelocity] = useState(
     Math.floor(Math.random() * 7) - 3
   );
   const [yVelocity, setYVelocity] = useState(INITIAL_Y_VELOCITY);
@@ -31,12 +31,12 @@ export function GradeParticle({ points, top, left }) {
     }, 1000 / 60);
 
     return () => clearInterval(intervalId);
-  }, [position, xVelocity, yVelocity]);
+  }, [position, xVelocity, yVelocity, g]);
 
   useEffect(() => {
     const audio = new Audio((points > 0) ? rightanswer : wronganswer);
     audio.play();
-  }, []);
+  }, [points]);
 
   return (
     <span inert="true" className="fw-bold h1" style={{

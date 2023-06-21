@@ -1,6 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useTimer } from "react-timer-hook";
-import { socket } from "../socket";
 
 import { GameStartCountdown } from "./GameStartCountdown";
 import { MathMinigame } from "./minigames/MathMinigame";
