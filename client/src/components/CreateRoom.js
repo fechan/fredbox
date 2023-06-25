@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { socket } from "../socket";
 
+import { Button } from "./Button";
+
 export function CreateRoom({ onBackClicked }) {
   const [ playerName, setPlayerName ] = useState("");
 
@@ -19,9 +21,9 @@ export function CreateRoom({ onBackClicked }) {
         <input className="form-control" onChange={ updatePlayerName } value={ playerName } name="player-name"></input>
       </div>
 
-      <button className="btn btn-primary" onClick={ createRoom }>Start game</button>
+      <Button className="btn btn-primary" onClick={ createRoom }>Start game</Button>
 
-      <button className="btn btn-back" onClick={ onBackClicked }>Back</button>
+      <Button className="btn btn-back" onClick={ onBackClicked }>Back</Button>
     </div>
   )
 }

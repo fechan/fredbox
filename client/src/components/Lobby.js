@@ -1,5 +1,7 @@
 import { socket } from "../socket";
 
+import { Button } from "./Button";
+
 export function Lobby({ roomInfo, currentPlayer, onBackClicked }) {
   function startGame() {
     socket.emit("startGame");
@@ -24,11 +26,11 @@ export function Lobby({ roomInfo, currentPlayer, onBackClicked }) {
 
       {
         currentPlayer === roomInfo.host ?
-          <button className="btn btn-primary" onClick={ startGame }>Start game</button> :
+          <Button className="btn btn-primary" onClick={ startGame }>Start game</Button> :
           "Waiting for host to start the game..."
       }
 
-      <button className="btn btn-back" onClick={ onBackClicked }>Leave game</button>
+      <Button className="btn btn-back" onClick={ onBackClicked }>Leave game</Button>
     </div>
   )
 }

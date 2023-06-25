@@ -10,6 +10,11 @@ import { EndGame } from "./components/EndGame";
 import { GradeParticle } from "./components/GradeParticle";
 import { GameDone } from "./components/GameDone";
 
+import wronganswer from "./sounds/wronganswer.mp3"
+import rightanswer from "./sounds/rightanswer.mp3"
+import hover from "./sounds/hover.mp3"
+import click from "./sounds/click.mp3"
+
 import './styles/App.scss';
 
 function App() {
@@ -32,6 +37,15 @@ function App() {
     socket.emit("leaveRoom");
   }
 
+  // pre-load audio files into browser cache
+  useEffect(() => {
+    new Audio(rightanswer);
+    new Audio(wronganswer);
+    new Audio(hover);
+    new Audio(click);
+  }, []);
+
+  // handle WebSocket messages
   useEffect( () => {
     socket.on("error", params => {
       setCurrentScreen("MainMenu");

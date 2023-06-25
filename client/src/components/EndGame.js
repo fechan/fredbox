@@ -1,3 +1,5 @@
+import { Button } from "./Button";
+
 export function EndGame({ scores, onBackClicked, onPlayAgainClicked }) {
   const scoreboardItems = scores.map((score, i) =>
     <li key={score.playerName} className="d-flex justify-content-between">
@@ -10,8 +12,8 @@ export function EndGame({ scores, onBackClicked, onPlayAgainClicked }) {
     <div>
       <h2>Scores</h2>
       <ol className="h4 text-start px-0">{ scoreboardItems }</ol>
-      <button className="btn btn-primary" onClick={ onPlayAgainClicked }>Play again</button>
-      <button className="btn btn-back" onClick={ onBackClicked }>Exit to main menu</button>
+      <Button className="btn btn-primary" onClick={ onPlayAgainClicked }>Play again</Button>
+      <Button className="btn btn-back" onClick={ onBackClicked }>Exit to main menu</Button>
     </div>
   )
 }

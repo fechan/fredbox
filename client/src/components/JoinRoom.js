@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { socket } from "../socket";
 
+import { Button } from "./Button";
+
 export function JoinRoom({ onBackClicked }) {
   const [ roomCode, setRoomCode ] = useState("");
   const [ playerName, setPlayerName ] = useState("");
@@ -32,9 +34,9 @@ export function JoinRoom({ onBackClicked }) {
         <input className="form-control" onChange={ updateRoomCode } value={ roomCode } name="room-code"></input>
       </div>
 
-      <button className="btn btn-primary" onClick={ joinRoom }>Join room</button>
+      <Button className="btn btn-primary" onClick={ joinRoom }>Join room</Button>
 
-      <button className="btn btn-back" onClick={ onBackClicked }>Back</button>
+      <Button className="btn btn-back" onClick={ onBackClicked }>Back</Button>
     </div>
   )
 }
