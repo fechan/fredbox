@@ -60,7 +60,7 @@ export function Minigame({ minigame, gameSeconds, onPlayerDone, scores, playerNa
     <div className="Minigame">
       {!showGameStartCountdown && <>
         <header className="stats">
-          <div><span className="stat-label">TIME LEFT</span> <span className="stat-value">{ gameTimer.totalSeconds }</span></div>
+          <div><span className="stat-label">TIME&nbsp;LEFT</span> <span className="stat-value">{ gameTimer.totalSeconds }</span></div>
           <div><span className="stat-label">POINTS</span>    <span className="stat-value">{ points }</span></div>
           <div><span className="stat-label">POSITION</span>  <span className="stat-value">{ place }</span></div>
         </header>
