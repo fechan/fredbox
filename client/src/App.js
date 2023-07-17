@@ -117,8 +117,15 @@ function App() {
                     onPlayerDone={ () => { socket.emit("playerDone"); setCurrentScreen("GameDone") } }
                     scores={ scores } playerName={ playerName } />,
     "EndGame":    <EndGame scores={ scores } 
-                    onPlayAgainClicked={ () => setCurrentScreen("Lobby") }
-                    onBackClicked={ () => { setCurrentScreen("MainMenu"); leaveRoom() } }/>,
+                    onPlayAgainClicked={ () => {
+                      setCurrentScreen("Lobby");
+                      setScores();
+                     } }
+                    onBackClicked={ () => {
+                      setCurrentScreen("MainMenu");
+                      setScores();
+                      leaveRoom();
+                    } }/>,
     "GameDone":   <GameDone />
   };
 
