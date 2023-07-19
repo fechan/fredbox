@@ -2,10 +2,10 @@ const StroopEffectMinigame = require("./minigames/stroopEffect");
 const MathMinigame = require("./minigames/math");
 const OperatorMathMinigame = require("./minigames/operatorMath");
 const UnscrambleMinigame = require("./minigames/unscramble");
+const DialMinigame = require("./minigames/dial");
 
 const Player = require("./player");
 const RandomUtils = require("../utils/random");
-const DialMinigame = require("./minigames/dial");
 
 module.exports = class Game {
   constructor(roomCode, lengthSeconds) {
