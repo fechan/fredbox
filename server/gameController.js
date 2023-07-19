@@ -19,6 +19,14 @@ module.exports = class GameController {
     });
   }
 
+  /**
+   * Called when a player joins a room.
+   * 
+   * Server will send `roomInfoChanged` to everyone already in the room
+   * and `gameJoined` to the new player.
+   * @param {String} params.room        Room code to join (not case sensitive)
+   * @param {String} params.playerName  Name of joining player
+   */
   onJoinRoom(socket, params) {
     const roomToJoin = params.room.toUpperCase();
     const game = this.games[roomToJoin];
@@ -41,6 +49,12 @@ module.exports = class GameController {
     this.sendGameJoined(socket, roomInfo, playerName);
   }
 
+  /**
+   * Called when a player creates a room.
+   * 
+   * Server will send `gameJoined` to the new player, who is made the host.
+   * @param {String} params.hostPlayerName Name of player who created the room
+   */
   onCreateRoom(socket, params) { 
     const newRoomCode = crypto.randomBytes(2).toString("hex").toUpperCase();
     const newGame = new Game(newRoomCode, 60 + 3);
@@ -137,6 +151,12 @@ module.exports = class GameController {
     console.info(`- Sent new minigame ${minigame.name}`);
   }
 
+  /**
+   * Send room information to a player newly joining a room
+   * @param {Socket} socket       Joining player's socket
+   * @param {Object} roomInfo     Details of room being joined
+   * @param {String} joinedPlayer Name of player who joined the room
+   */
   sendGameJoined(socket, roomInfo, joinedPlayer) {
     socket.emit("gameJoined", {
       "roomInfo": roomInfo,
@@ -150,11 +170,21 @@ module.exports = class GameController {
     console.info(`- Sent points earned for graded answer`);
   }
 
+  /**
+   * Send details about the room (players, host, options) to everyone in it
+   * @param {Object} roomInfo Room information
+   */
   sendRoomInfoChanged(roomInfo) {
     this.io.to(roomInfo.roomCode).emit("roomInfoChanged", {"roomInfo": roomInfo});
     console.info(`- Sent new roomInfo to all players in room ${roomInfo.roomCode}`);
   }
 
+  /**
+   * Send an error to the given socket
+   * @param {Socket} socket   Socket to send to
+   * @param {String} code     Machine-readable error code
+   * @param {String} message  Human-readable error message
+   */
   sendError(socket, code, message) {
     socket.emit("error", {
       "code": code,
