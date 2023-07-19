@@ -88,6 +88,11 @@ module.exports = class GameController {
     }
   }
 
+  /**
+   * Called when the host starts the game.
+   * 
+   * The server will send `setGameLength` and `showMinigame` to the entire room
+   */
   onStartGame(socket, params) {
     if (this.#socketNotInActiveRoom(socket)) return;
 
@@ -95,7 +100,7 @@ module.exports = class GameController {
     const firstMinigame = game.startGame();
 
     const room = game.roomCode;
-    this.io.to(room).emit("setGameLength", {"seconds": game.lengthSeconds});
+    this.io.to(room).emit("setGameLength", {"seconds": game.lengthSeconds}); // TODO: when we implement changing options in the lobby screen, this should be moved out
     this.io.to(room).emit("showMinigame", {"minigame": firstMinigame});
 
     console.info(`Game for room ${room} started`);
