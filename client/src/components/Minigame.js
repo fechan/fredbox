@@ -7,6 +7,7 @@ import { OperatorMathMinigame } from "./minigames/OperatorMathMinigame";
 import { StroopEffectMinigame } from "./minigames/StroopEffectMinigame";
 import { UnscrambleMinigame } from "./minigames/UnscrambleMinigame";
 import { DialMinigame } from "./minigames/DialMinigame";
+import { TomSpatialVisualization } from "./minigames/TomSpatialVisualization";
 
 export function Minigame({ minigame, gameSeconds, onPlayerDone, scores, playerName }) {
   const [showGameStartCountdown, setShowGameStartCountdown] = useState(minigame.id === 0);
@@ -40,6 +41,12 @@ export function Minigame({ minigame, gameSeconds, onPlayerDone, scores, playerNa
       minigameID={ minigame.id }
       choices={ minigame.choices }
       dialWord={ minigame.dialWord } />,
+
+    "TomSpatialVisualization": <TomSpatialVisualization
+      minigameID={ minigame.id }
+      choices={ minigame.choices }
+      shape={ minigame.shape }
+      boxes={ minigame.boxes } />,
   };
 
   function getPlayerPosition() {

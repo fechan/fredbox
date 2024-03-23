@@ -3,6 +3,7 @@ const MathMinigame = require("./minigames/math");
 const OperatorMathMinigame = require("./minigames/operatorMath");
 const UnscrambleMinigame = require("./minigames/unscramble");
 const DialMinigame = require("./minigames/dial");
+const TomSpatialVisualization = require("./minigames/tomSpatialVisualization");
 
 const Player = require("./player");
 const RandomUtils = require("../utils/random");
@@ -18,7 +19,8 @@ module.exports = class Game {
       MathMinigame,
       OperatorMathMinigame,
       UnscrambleMinigame,
-      DialMinigame
+      DialMinigame,
+      TomSpatialVisualization,
     ];
     
     this.host;
