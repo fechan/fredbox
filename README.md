@@ -13,6 +13,13 @@ A multiplayer game where you compete with your friends to answer a series of sim
 3. Run `npm run build`
 4. Run `npm start`
 
+## Development
+If you are developing, you will want to start the server and client separately in order to leverage debug tools and restart either without affecting the other.
+1. In `server`, run `npm install`
+2. In `server`, run `node index.js`
+3. In `client`, run `npm install`
+4. In `client`, run `npm start`.
+
 ## Adding a minigame
 ### Basic concept
 Every minigame generates questions like "What is 2+2?" and offers the user a selection of possible answers to choose. The minigame awards points depending on if the answer is correct.
@@ -22,7 +29,7 @@ Each minigame question is an instance of a minigame class on the server side. Wh
 The client side uses this data to render a React component for the minigame. When the player chooses an answer from choices, the server asks the minigame instance to grade the answer and return the number of points awarded/deducted to the player.
 
 ### Server-side
-1. Add a js file to `/server/game_logic/minigames`
+1. Add a js file to `server/game_logic/minigames`
 2. Add the following code and change all instances of `MyMinigame` to the name of your minigame:
 ```js
 module.exports = class MyMinigame {
@@ -61,3 +68,4 @@ module.exports = class MyMinigame {
 4. In `constructor()`, change `this.answer` to be the correct answer. If your question can have multiple correct answers, you'll need to define custom behavior in `gradeAnswer()`.
 4. In `constructor()`, generate any additional data needed for the client to render this question. Then, add it to the object returned by `serialize()`.
     * `questionText` is an example of such data. This could be replaced by anything you need to send to the client, and you can add as much additional data as you need.
+5. Import your class and add your minigame to `this.availableMinigames` in `server/game_logic/game.js`
