@@ -66,6 +66,6 @@ module.exports = class MyMinigame {
 ```
 3. In `constructor()`, change `this.choices` to be a list of possible player choices.
 4. In `constructor()`, change `this.answer` to be the correct answer. If your question can have multiple correct answers, you'll need to define custom behavior in `gradeAnswer()`.
-4. In `constructor()`, generate any additional data needed for the client to render this question. Then, add it to the object returned by `serialize()`.
+5. In `constructor()`, generate any additional data needed for the client to render this question. Then, add it to the object returned by `serialize()`.
     * `questionText` is an example of such data. This could be replaced by anything you need to send to the client, and you can add as much additional data as you need.
-5. Import your class and add your minigame to `this.availableMinigames` in `server/game_logic/game.js`
+6. Import your class and add your minigame to `this.availableMinigames` in `server/game_logic/game.js`
