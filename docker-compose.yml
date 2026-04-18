@@ -1,6 +1,6 @@
 version: "3.3"
 services:
-  server:
+  fredbox-server:
     restart: always
     build: .
     environment:
